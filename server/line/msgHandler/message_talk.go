@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+// test
 func TextMsg(text string, event *linebot.Event) {
 
 	userID := event.Source.UserID
