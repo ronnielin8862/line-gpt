@@ -9,6 +9,7 @@ import (
 var textChannel = make(chan *linebot.Event, 10)
 
 func CheckChannelSize(event *linebot.Event) {
+	log.Println("textChannel size: ", len(textChannel))
 	if len(textChannel) >= 9 {
 		PushTextMsg("目前等待回覆問題量較大，等一分鐘後再問辣...", event)
 	}
