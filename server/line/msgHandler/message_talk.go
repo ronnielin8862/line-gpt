@@ -8,14 +8,12 @@ import (
 	"strings"
 )
 
-var textChannel = make(chan *linebot.Event, 10)
-
 func TextMsgHandler(text string, event *linebot.Event) {
 	if needProcess(&text) == "" {
 		return
 	}
 
-	textChannel <- event
+	lineUtil.TextChannel <- event
 	lineUtil.CheckChannelSize(event)
 }
 
