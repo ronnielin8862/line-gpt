@@ -44,6 +44,8 @@ func msgCustomized(s *string) (ns string) {
 		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "tt ", "請將以下內容翻譯成泰文: \"", 1), "\"")
 	case strings.HasPrefix(*s, "tj "):
 		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "tj ", "請將以下內容翻譯成日文: \"", 1), "\"")
+	case strings.HasPrefix(*s, "te "):
+		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "tj ", "請將以下內容翻譯成英文: \"", 1), "\"")
 	case strings.HasPrefix(*s, "ai "):
 		ns = strings.Replace(*s, "ai ", "", 1)
 	}
