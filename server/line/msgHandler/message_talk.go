@@ -6,8 +6,10 @@ import (
 	"line-gpt/global"
 	"line-gpt/server/gpt"
 	"log"
+	"strings"
 )
 
+// test
 func TextMsg(text string, event *linebot.Event) {
 
 	userID := event.Source.UserID
@@ -26,8 +28,28 @@ func TextMsg(text string, event *linebot.Event) {
 	}
 
 ASK:
-	answer := gpt.Talk(text)
+	customizedText := msgCustomized(&text)
+	if customizedText == "" {
+		return
+	}
+	log.Printf("customizedText: %s\n", customizedText)
+	answer := gpt.Talk(customizedText)
 	testPushTextMsg(answer, target)
+}
+
+func msgCustomized(s *string) (ns string) {
+	switch {
+	case strings.HasPrefix(*s, "tc "):
+		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "tc ", "請將以下內容翻譯成中文: \"", 1), "\"")
+	case strings.HasPrefix(*s, "tt "):
+		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "tt ", "請將以下內容翻譯成泰文: \"", 1), "\"")
+	case strings.HasPrefix(*s, "tj "):
+		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "tj ", "請將以下內容翻譯成日文: \"", 1), "\"")
+	case strings.HasPrefix(*s, "ai "):
+		ns = strings.Replace(*s, "ai ", "", 1)
+	}
+
+	return ns
 }
 
 func testPushTextMsg(answer, target string) {
