@@ -2,13 +2,13 @@ package gpt
 
 import (
 	"context"
-	"fmt"
 	"github.com/sashabaranov/go-openai"
 	"line-gpt/global"
 	"log"
 )
 
 func Talk(ask string) string {
+	log.Printf("ask: %s\n", ask)
 	resp, err := global.GptClient.CreateChatCompletion(
 		context.Background(),
 		openai.ChatCompletionRequest{
@@ -27,7 +27,7 @@ func Talk(ask string) string {
 		return "我有點錯亂，請再問一次..."
 	}
 
-	fmt.Println(resp.Choices[0].Message.Content)
+	log.Println(resp.Choices[0].Message.Content)
 
 	return resp.Choices[0].Message.Content
 }

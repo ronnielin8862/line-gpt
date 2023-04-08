@@ -3,38 +3,42 @@ package msgHandler
 import (
 	"fmt"
 	"github.com/line/line-bot-sdk-go/v7/linebot"
-	"line-gpt/global"
 	"line-gpt/server/gpt"
-	"log"
+	"line-gpt/server/line/lineUtil"
 	"strings"
 )
 
-// test33333333333
-func TextMsg(text string, event *linebot.Event) {
+var textChannel = make(chan *linebot.Event, 10)
 
-	userID := event.Source.UserID
-	groupID := event.Source.GroupID
-	RoomID := event.Source.RoomID
-	fmt.Println("userID: ", userID, " groupID: ", groupID, " RoomID: ", RoomID)
-	var target string
-	if RoomID != "" {
-		target = RoomID
-		goto ASK
-	} else if groupID != "" {
-		target = groupID
-		goto ASK
-	} else {
-		target = userID
-	}
-
-ASK:
-	customizedText := msgCustomized(&text)
-	if customizedText == "" {
+func TextMsgHandler(text string, event *linebot.Event) {
+	if needProcess(&text) == "" {
 		return
 	}
-	log.Printf("customizedText: %s\n", customizedText)
+
+	textChannel <- event
+	lineUtil.CheckChannelSize(event)
+}
+
+func needProcess(s *string) (ns string) {
+	switch {
+	case strings.HasPrefix(*s, "tc "):
+		ns = "yes"
+	case strings.HasPrefix(*s, "tt "):
+		ns = "yes"
+	case strings.HasPrefix(*s, "tj "):
+		ns = "yes"
+	case strings.HasPrefix(*s, "te "):
+		ns = "yes"
+	case strings.HasPrefix(*s, "ai "):
+		ns = "yes"
+	}
+	return ns
+}
+
+func textProcess(content string, event *linebot.Event) {
+	customizedText := msgCustomized(&content)
 	answer := gpt.Talk(customizedText)
-	testPushTextMsg(answer, target)
+	lineUtil.PushTextMsg(answer, event)
 }
 
 func msgCustomized(s *string) (ns string) {
@@ -52,15 +56,4 @@ func msgCustomized(s *string) (ns string) {
 	}
 
 	return ns
-}
-
-func testPushTextMsg(answer, target string) {
-	var messages []linebot.SendingMessage
-	messages = append(messages, linebot.NewTextMessage(answer))
-	response, err := global.Bot.PushMessage(target, messages...).Do()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("response: ", response.RequestID)
 }
