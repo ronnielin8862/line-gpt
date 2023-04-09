@@ -5,9 +5,11 @@ import (
 	"github.com/sashabaranov/go-openai"
 	"line-gpt/global"
 	"log"
+	"strings"
 )
 
 func ImageCreate(ask string) (urls []string) {
+	ask = strings.Replace(ask, "ci ", "", 1)
 	log.Printf("ask: %s\n", ask)
 	resp, err := global.GptClient.CreateImage(
 		context.Background(),
