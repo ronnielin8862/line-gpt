@@ -7,13 +7,24 @@ import (
 )
 
 var TextChannel = make(chan *linebot.Event, 10)
+var ImageChannel = make(chan *linebot.Event, 3)
 
-func CheckChannelSize(event *linebot.Event) {
+func CheckTextChannelSize(event *linebot.Event) {
 	log.Println("textChannel size: ", len(TextChannel))
 	if len(TextChannel) >= 9 {
 		PushTextMsg("目前等待回覆問題量較大，等一分鐘後再問辣...", event)
 	}
 	if len(TextChannel) >= 2 {
+		PushTextMsg("稍等下", event)
+	}
+}
+
+func CheckImgChannelSize(event *linebot.Event) {
+	log.Println("textChannel size: ", len(TextChannel))
+	if len(TextChannel) >= 5 {
+		PushTextMsg("目前圖片處理量較大，等一分鐘後再問辣...", event)
+	}
+	if len(TextChannel) >= 1 {
 		PushTextMsg("稍等下", event)
 	}
 }

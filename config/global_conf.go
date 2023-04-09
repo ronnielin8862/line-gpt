@@ -1,8 +1,8 @@
 package config
 
 import (
-	"fmt"
 	"github.com/BurntSushi/toml"
+	"log"
 )
 
 var Config = GlobalConfig{}
@@ -27,11 +27,11 @@ type (
 	}
 )
 
-func LoadGlobalConfig() (*GlobalConfig, error) {
+func LoadGlobalConfig() {
 	filePath := "./config.toml"
 	_, err := toml.DecodeFile(filePath, &Config)
 	if err != nil {
-		return nil, fmt.Errorf("load Config file '%s' failed, %s", filePath, err)
+		log.Fatal("LoadGlobalConfig error: ", err)
 	}
 
 	//marshal, err := json.Marshal(Config)
@@ -39,6 +39,4 @@ func LoadGlobalConfig() (*GlobalConfig, error) {
 	//	log.Fatal(err)
 	//}
 	//log.Println(string(marshal))
-
-	return &Config, nil
 }

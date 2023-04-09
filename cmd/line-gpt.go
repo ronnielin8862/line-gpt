@@ -4,15 +4,10 @@ import (
 	"line-gpt/config"
 	"line-gpt/server/gpt"
 	"line-gpt/server/line"
-	"log"
 )
 
 func main() {
-	_, err := config.LoadGlobalConfig()
-	if err != nil {
-		log.Fatal("init config err :", err)
-	}
-
+	config.LoadGlobalConfig()
 	gpt.Start()
 	line.Init()
 }

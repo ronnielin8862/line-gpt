@@ -12,7 +12,8 @@ import (
 
 func Init() {
 	global.LineInit()
-	go msgHandler.ChannelProcessor()
+	go msgHandler.TextChannelProcessor()
+	go msgHandler.ImageChannelProcessor()
 	createRouter()
 }
 

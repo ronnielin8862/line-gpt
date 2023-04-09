@@ -9,28 +9,34 @@ import (
 )
 
 func TextMsgHandler(text string, event *linebot.Event) {
-	if needProcess(&text) == "" {
+	switch processType(&text) {
+	case "chat":
+		lineUtil.TextChannel <- event
+		lineUtil.CheckTextChannelSize(event)
+	case "imgCreate":
+		lineUtil.ImageChannel <- event
+		lineUtil.CheckImgChannelSize(event)
+	default:
 		return
 	}
-
-	lineUtil.TextChannel <- event
-	lineUtil.CheckChannelSize(event)
 }
 
-func needProcess(s *string) (ns string) {
+func processType(s *string) (ns string) {
 	switch {
 	case strings.HasPrefix(*s, "tc "):
-		ns = "yes"
+		ns = "chat"
 	case strings.HasPrefix(*s, "tt "):
-		ns = "yes"
+		ns = "chat"
 	case strings.HasPrefix(*s, "tj "):
-		ns = "yes"
+		ns = "chat"
 	case strings.HasPrefix(*s, "te "):
-		ns = "yes"
+		ns = "chat"
 	case strings.HasPrefix(*s, "tk "):
-		ns = "yes"
+		ns = "chat"
+	case strings.HasPrefix(*s, "ci "):
+		ns = "imgCreate"
 	case strings.HasPrefix(*s, "ai "):
-		ns = "yes"
+		ns = "chat"
 	}
 	return ns
 }
@@ -57,5 +63,20 @@ func msgCustomized(s *string) (ns string) {
 		ns = strings.Replace(*s, "ai ", "", 1)
 	}
 
+	return ns
+}
+
+func imageProcess(content string, event *linebot.Event) {
+	urls := gpt.ImageCreate(content)
+	for _, url := range urls {
+		lineUtil.PushTextMsg(url, event)
+	}
+}
+
+func imgCustomized(s *string) (ns string) {
+	switch {
+	case strings.HasPrefix(*s, "ci "):
+		ns = strings.Replace(*s, "ci ", "", 1)
+	}
 	return ns
 }

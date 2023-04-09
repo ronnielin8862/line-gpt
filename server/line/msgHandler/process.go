@@ -6,12 +6,24 @@ import (
 	"log"
 )
 
-func ChannelProcessor() {
+func TextChannelProcessor() {
 	for {
 		event := <-lineUtil.TextChannel
 		switch message := event.Message.(type) {
 		case *linebot.TextMessage:
 			textProcess(message.Text, event)
+		default:
+			log.Println("process another event type :  , do nothing! ", event.Type)
+		}
+	}
+}
+
+func ImageChannelProcessor() {
+	for {
+		event := <-lineUtil.ImageChannel
+		switch message := event.Message.(type) {
+		case *linebot.TextMessage:
+			imageProcess(message.ID, event)
 		default:
 			log.Println("process another event type :  , do nothing! ", event.Type)
 		}
