@@ -27,9 +27,9 @@ func needProcess(s *string) (ns string) {
 		ns = "yes"
 	case strings.HasPrefix(*s, "te "):
 		ns = "yes"
-	case strings.HasPrefix(*s, "ai "):
-		ns = "yes"
 	case strings.HasPrefix(*s, "tk "):
+		ns = "yes"
+	case strings.HasPrefix(*s, "ai "):
 		ns = "yes"
 	}
 	return ns

@@ -7,7 +7,8 @@ Gpt in Line
 2. tj => translate to Japanese, "tj how are you?", will reply "お元気ですか？"
 3. te => translate to English
 4. tt => translate to Thai
-5. ai => talk with chatGPT, "ai 請用一個六歲小孩的日文，表達他很喜歡他母親", will reply "わたしのお母さん、だいすき！"
+5. tk => translate to Khmer
+6. ai => talk with chatGPT, "ai 請用一個六歲小孩的日文，表達他很喜歡他母親", will reply "わたしのお母さん、だいすき！"
 ## How to build
 1. apply Line developer account and get channel secret and channel token
 2. apply GPT api token
