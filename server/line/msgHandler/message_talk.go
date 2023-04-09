@@ -70,17 +70,10 @@ func msgCustomized(s *string) (ns string) {
 }
 
 func imageProcess(content string, event *linebot.Event) {
+	log.Printf("imageProcess 1 %s", content)
 	urls := gpt.ImageCreate(content)
 	for _, url := range urls {
-		lineUtil.PushTextMsg(url, event)
+		lineUtil.PushImageMsg(url, event)
 		time.Sleep(1 * time.Second)
 	}
-}
-
-func imgCustomized(s *string) (ns string) {
-	switch {
-	case strings.HasPrefix(*s, "ci "):
-		ns = strings.Replace(*s, "ci ", "", 1)
-	}
-	return ns
 }

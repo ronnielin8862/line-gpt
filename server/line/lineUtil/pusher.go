@@ -28,8 +28,7 @@ func CheckImgChannelSize(event *linebot.Event) {
 	}
 }
 
-func PushTextMsg(content string, event *linebot.Event) {
-
+func getTarget(event *linebot.Event) string {
 	userID := event.Source.UserID
 	groupID := event.Source.GroupID
 	RoomID := event.Source.RoomID
@@ -37,15 +36,19 @@ func PushTextMsg(content string, event *linebot.Event) {
 	var target string
 	if RoomID != "" {
 		target = RoomID
-		goto ASK
 	} else if groupID != "" {
 		target = groupID
-		goto ASK
 	} else {
 		target = userID
 	}
 
-ASK:
+	log.Println("RoomID: ", RoomID, ", groupID: ", groupID, ", userID: ", userID)
+	return target
+}
+
+func PushTextMsg(content string, event *linebot.Event) {
+
+	target := getTarget(event)
 
 	var messages []linebot.SendingMessage
 	messages = append(messages, linebot.NewTextMessage(content))
@@ -54,6 +57,19 @@ ASK:
 		log.Println(err)
 	}
 
-	log.Println("RoomID: ", RoomID, ", groupID: ", groupID, ", userID: ", userID)
 	log.Printf("Push Msg: %s, Response Id: %s", content, response.RequestID)
+}
+
+func PushImageMsg(url string, event *linebot.Event) {
+
+	target := getTarget(event)
+	log.Println("PushImageMsg: ", url, ", target: ", target)
+	var messages []linebot.SendingMessage
+	messages = append(messages, linebot.NewImageMessage(url, url))
+	response, err := global.Bot.PushMessage(target, messages...).Do()
+	if err != nil {
+		log.Println(err)
+	}
+
+	log.Printf("Push Msg: %s, Response Id: %s", url, response.RequestID)
 }
