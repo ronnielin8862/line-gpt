@@ -11,8 +11,7 @@ import (
 )
 
 func TextMsgHandler(text string, event *linebot.Event) {
-	ns := processType(text)
-	switch ns {
+	switch processType(text) {
 	case "chat":
 		lineUtil.TextChannel <- event
 		lineUtil.CheckTextChannelSize(event)
