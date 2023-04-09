@@ -20,11 +20,10 @@ func CheckTextChannelSize(event *linebot.Event) {
 }
 
 func CheckImgChannelSize(event *linebot.Event) {
-	log.Println("textChannel size: ", len(TextChannel))
-	if len(TextChannel) >= 5 {
+	log.Println("imgChannel size: ", len(ImageChannel))
+	if len(ImageChannel) >= 5 {
 		PushTextMsg("目前圖片處理量較大，等一分鐘後再問辣...", event)
-	}
-	if len(TextChannel) >= 1 {
+	} else if len(ImageChannel) >= 1 {
 		PushTextMsg("稍等下", event)
 	}
 }

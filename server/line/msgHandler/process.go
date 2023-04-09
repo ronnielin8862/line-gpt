@@ -21,6 +21,7 @@ func TextChannelProcessor() {
 func ImageChannelProcessor() {
 	for {
 		event := <-lineUtil.ImageChannel
+		log.Println("ImageChannelProcessor 1 ")
 		switch message := event.Message.(type) {
 		case *linebot.TextMessage:
 			imageProcess(message.ID, event)

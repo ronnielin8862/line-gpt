@@ -5,7 +5,9 @@ import (
 	"github.com/line/line-bot-sdk-go/v7/linebot"
 	"line-gpt/server/gpt"
 	"line-gpt/server/line/lineUtil"
+	"log"
 	"strings"
+	"time"
 )
 
 func TextMsgHandler(text string, event *linebot.Event) {
@@ -14,6 +16,7 @@ func TextMsgHandler(text string, event *linebot.Event) {
 		lineUtil.TextChannel <- event
 		lineUtil.CheckTextChannelSize(event)
 	case "imgCreate":
+		log.Println("imgCreate 1 ")
 		lineUtil.ImageChannel <- event
 		lineUtil.CheckImgChannelSize(event)
 	default:
@@ -70,6 +73,7 @@ func imageProcess(content string, event *linebot.Event) {
 	urls := gpt.ImageCreate(content)
 	for _, url := range urls {
 		lineUtil.PushTextMsg(url, event)
+		time.Sleep(1 * time.Second)
 	}
 }
 
