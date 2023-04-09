@@ -52,7 +52,7 @@ func msgCustomized(s *string) (ns string) {
 	case strings.HasPrefix(*s, "te "):
 		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "te ", "請將以下內容翻譯成英文: \"", 1), "\"")
 	case strings.HasPrefix(*s, "tk "):
-		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "te ", "請將以下內容翻譯成高棉文: \"", 1), "\"")
+		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "tk ", "請將以下內容翻譯成高棉文: \"", 1), "\"")
 	case strings.HasPrefix(*s, "ai "):
 		ns = strings.Replace(*s, "ai ", "", 1)
 	}
