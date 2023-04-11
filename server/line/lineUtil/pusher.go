@@ -69,7 +69,8 @@ func PushImageMsg(url string, event *linebot.Event) {
 	response, err := global.Bot.PushMessage(target, messages...).Do()
 	if err != nil {
 		log.Println(err)
+	} else {
+		log.Printf("Push Msg: %s, Response Id: %s", url, response.RequestID)
 	}
 
-	log.Printf("Push Msg: %s, Response Id: %s", url, response.RequestID)
 }
