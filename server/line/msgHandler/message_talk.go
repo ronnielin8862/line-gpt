@@ -11,12 +11,9 @@ import (
 )
 
 func TextMsgHandler(text string, event *linebot.Event) {
-
 	if len(text) >= 4 {
 		text = strings.ToLower(text[:2]) + text[2:]
-		log.Printf("msgCustomized 1 %s", text)
 	}
-	log.Printf("msgCustomized 2 %s", text)
 	switch processType(text) {
 	case "chat":
 		lineUtil.TextChannel <- event
@@ -61,9 +58,7 @@ func msgCustomized(s *string) (ns string) {
 	log.Print(ss)
 	if len(ss) >= 4 {
 		ss = strings.ToLower(ss[:2]) + ss[2:]
-		log.Printf("msgCustomized 1 %s", ss)
 	}
-	log.Printf("msgCustomized 2 %s", ss)
 	switch {
 	case strings.HasPrefix(ss, "tc "):
 		ns = fmt.Sprintf("%s%s", strings.Replace(ss, "tc ", "請將以下內容翻譯成中文: \"", 1), "\"")
@@ -78,7 +73,6 @@ func msgCustomized(s *string) (ns string) {
 	case strings.HasPrefix(ss, "ai "):
 		ns = strings.Replace(ss, "ai ", "", 1)
 	}
-	log.Printf("msgCustomized 3 %s", ns)
 	return ns
 }
 
