@@ -11,9 +11,6 @@ import (
 )
 
 func TextMsgHandler(text string, event *linebot.Event) {
-	if len(text) >= 4 {
-		text = strings.ToLower(text[:3]) + text[3:]
-	}
 	switch processType(text) {
 	case "chat":
 		lineUtil.TextChannel <- event
@@ -28,6 +25,10 @@ func TextMsgHandler(text string, event *linebot.Event) {
 }
 
 func processType(s string) (ns string) {
+
+	if len(s) >= 4 {
+		s = strings.ToLower(s[:3]) + s[3:]
+	}
 	switch {
 	case strings.HasPrefix(s, "tc "):
 		ns = "chat"
