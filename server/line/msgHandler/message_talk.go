@@ -11,6 +11,9 @@ import (
 )
 
 func TextMsgHandler(text string, event *linebot.Event) {
+	if len(text) >= 4 {
+		text = strings.ToLower(text[:3]) + text[3:]
+	}
 	switch processType(text) {
 	case "chat":
 		lineUtil.TextChannel <- event
