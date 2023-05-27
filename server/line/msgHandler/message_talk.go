@@ -25,10 +25,6 @@ func TextMsgHandler(text string, event *linebot.Event) {
 }
 
 func processType(s string) (ns string) {
-
-	if len(s) >= 4 {
-		s = strings.ToLower(s[:3]) + s[3:]
-	}
 	switch {
 	case strings.HasPrefix(s, "tc "):
 		ns = "chat"
@@ -55,19 +51,23 @@ func textProcess(content string, event *linebot.Event) {
 }
 
 func msgCustomized(s *string) (ns string) {
+	ss := *s
+	if len(ss) >= 4 {
+		ss = strings.ToLower(ss[:3]) + ss[3:]
+	}
 	switch {
-	case strings.HasPrefix(*s, "tc "):
-		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "tc ", "請將以下內容翻譯成中文: \"", 1), "\"")
-	case strings.HasPrefix(*s, "tt "):
-		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "tt ", "請將以下內容翻譯成泰文: \"", 1), "\"")
-	case strings.HasPrefix(*s, "tj "):
-		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "tj ", "請將以下內容翻譯成日文: \"", 1), "\"")
-	case strings.HasPrefix(*s, "te "):
-		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "te ", "請將以下內容翻譯成英文: \"", 1), "\"")
-	case strings.HasPrefix(*s, "tk "):
-		ns = fmt.Sprintf("%s%s", strings.Replace(*s, "tk ", "請將以下內容翻譯成高棉文: \"", 1), "\"")
-	case strings.HasPrefix(*s, "ai "):
-		ns = strings.Replace(*s, "ai ", "", 1)
+	case strings.HasPrefix(ss, "tc "):
+		ns = fmt.Sprintf("%s%s", strings.Replace(ss, "tc ", "請將以下內容翻譯成中文: \"", 1), "\"")
+	case strings.HasPrefix(ss, "tt "):
+		ns = fmt.Sprintf("%s%s", strings.Replace(ss, "tt ", "請將以下內容翻譯成泰文: \"", 1), "\"")
+	case strings.HasPrefix(ss, "tj "):
+		ns = fmt.Sprintf("%s%s", strings.Replace(ss, "tj ", "請將以下內容翻譯成日文: \"", 1), "\"")
+	case strings.HasPrefix(ss, "te "):
+		ns = fmt.Sprintf("%s%s", strings.Replace(ss, "te ", "請將以下內容翻譯成英文: \"", 1), "\"")
+	case strings.HasPrefix(ss, "tk "):
+		ns = fmt.Sprintf("%s%s", strings.Replace(ss, "tk ", "請將以下內容翻譯成高棉文: \"", 1), "\"")
+	case strings.HasPrefix(ss, "ai "):
+		ns = strings.Replace(ss, "ai ", "", 1)
 	}
 
 	return ns
