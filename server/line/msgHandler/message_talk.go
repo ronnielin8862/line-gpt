@@ -54,7 +54,9 @@ func msgCustomized(s *string) (ns string) {
 	ss := *s
 	if len(ss) >= 4 {
 		ss = strings.ToLower(ss[:2]) + ss[2:]
+		log.Printf("msgCustomized 1 %s", ns)
 	}
+	log.Printf("msgCustomized 2 %s", ns)
 	switch {
 	case strings.HasPrefix(ss, "tc "):
 		ns = fmt.Sprintf("%s%s", strings.Replace(ss, "tc ", "請將以下內容翻譯成中文: \"", 1), "\"")
@@ -69,7 +71,7 @@ func msgCustomized(s *string) (ns string) {
 	case strings.HasPrefix(ss, "ai "):
 		ns = strings.Replace(ss, "ai ", "", 1)
 	}
-	log.Printf("msgCustomized  %s", ns)
+	log.Printf("msgCustomized 3 %s", ns)
 	return ns
 }
 
