@@ -69,7 +69,7 @@ func msgCustomized(s *string) (ns string) {
 	case strings.HasPrefix(ss, "ai "):
 		ns = strings.Replace(ss, "ai ", "", 1)
 	}
-
+	log.Printf("msgCustomized  %s", ns)
 	return ns
 }
 
