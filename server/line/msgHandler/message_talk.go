@@ -53,7 +53,7 @@ func textProcess(content string, event *linebot.Event) {
 func msgCustomized(s *string) (ns string) {
 	ss := *s
 	if len(ss) >= 4 {
-		ss = strings.ToLower(ss[:3]) + ss[3:]
+		ss = strings.ToLower(ss[:2]) + ss[2:]
 	}
 	switch {
 	case strings.HasPrefix(ss, "tc "):
