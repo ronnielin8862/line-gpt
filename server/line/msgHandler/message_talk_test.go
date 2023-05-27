@@ -36,8 +36,8 @@ func Test_msgCustomized1(t *testing.T) {
 		wantNs string
 	}{
 		// TODO: Add test cases.
-		{name: "tc", args: args{&b}, wantNs: "請將以下內容翻譯成中文: \"test\""},
-		{"tt", args{&a}, "請將以下內容翻譯成泰文: \"test\""},
+		{name: "111", args: args{&b}, wantNs: "請將以下內容翻譯成中文: \"test\""},
+		{"222", args{&a}, "請將以下內容翻譯成泰文: \"test\""},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

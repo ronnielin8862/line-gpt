@@ -52,11 +52,12 @@ func textProcess(content string, event *linebot.Event) {
 
 func msgCustomized(s *string) (ns string) {
 	ss := *s
+	log.Print(ss)
 	if len(ss) >= 4 {
 		ss = strings.ToLower(ss[:2]) + ss[2:]
-		log.Printf("msgCustomized 1 %s", ns)
+		log.Printf("msgCustomized 1 %s", ss)
 	}
-	log.Printf("msgCustomized 2 %s", ns)
+	log.Printf("msgCustomized 2 %s", ss)
 	switch {
 	case strings.HasPrefix(ss, "tc "):
 		ns = fmt.Sprintf("%s%s", strings.Replace(ss, "tc ", "請將以下內容翻譯成中文: \"", 1), "\"")
