@@ -47,3 +47,16 @@ func Test_msgCustomized1(t *testing.T) {
 		})
 	}
 }
+
+func TestSwitch(t *testing.T) {
+	test := "b"
+
+	switch test {
+	case "a", "b":
+		println("aaa")
+	case "s":
+		println("sss")
+	default:
+		println("other")
+	}
+}

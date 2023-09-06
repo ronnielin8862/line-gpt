@@ -29,12 +29,8 @@ func TextMsgHandler(text string, event *linebot.Event) {
 
 func processType(s string) (ns string) {
 	switch {
-	case strings.HasPrefix(s, "tc "):
-	case strings.HasPrefix(s, "tt "):
-	case strings.HasPrefix(s, "tj "):
-	case strings.HasPrefix(s, "te "):
-	case strings.HasPrefix(s, "tk "):
-	case strings.HasPrefix(s, "ai "):
+	case strings.HasPrefix(s, "tc "), strings.HasPrefix(s, "tt "), strings.HasPrefix(s, "tj "),
+		strings.HasPrefix(s, "te "), strings.HasPrefix(s, "tk "), strings.HasPrefix(s, "ai "):
 		ns = "chat"
 	case strings.HasPrefix(s, "ci "):
 		ns = "imgCreate"
