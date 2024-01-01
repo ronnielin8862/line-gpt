@@ -12,7 +12,7 @@ func Talk(ask string) string {
 	resp, err := global.GptClient.CreateChatCompletion(
 		context.Background(),
 		openai.ChatCompletionRequest{
-			Model: openai.GPT4,
+			Model: openai.GPT432K0314,
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role:    openai.ChatMessageRoleUser,
