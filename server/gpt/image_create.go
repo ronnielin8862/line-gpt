@@ -17,7 +17,7 @@ func ImageCreate(ask string) (urls []string) {
 			Model:          openai.CreateImageModelDallE3,
 			Size:           openai.CreateImageSize1024x1024,
 			Prompt:         ask,
-			N:              2,
+			N:              1,
 			Quality:        openai.CreateImageQualityStandard,
 			ResponseFormat: openai.CreateImageResponseFormatURL,
 		},
