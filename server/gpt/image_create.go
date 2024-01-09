@@ -14,10 +14,11 @@ func ImageCreate(ask string) (urls []string) {
 	resp, err := global.GptClient.CreateImage(
 		context.Background(),
 		openai.ImageRequest{
-			Model:          openai.CreateImageModelDallE2,
+			Model:          openai.CreateImageModelDallE3,
 			Size:           openai.CreateImageSize512x512,
 			Prompt:         ask,
 			N:              2,
+			Quality:        openai.CreateImageQualityStandard,
 			ResponseFormat: openai.CreateImageResponseFormatURL,
 		},
 	)
