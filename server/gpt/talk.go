@@ -29,8 +29,7 @@ func Talk(ask string) string {
 		return errString
 	}
 
-	var response = resp.Choices[0].Message.Content
-	log.Println("ask answer " + response)
+	response := resp.Choices[0].Message.Content
 	log.Println("ask answer " + response)
 	return response
 }
