@@ -29,7 +29,8 @@ func Talk(ask string) string {
 		return fmt.Sprintf("ImageCreate error: %v\n\n", errString)
 	}
 
-	log.Println(resp.Choices[0].Message.Content)
+	response := resp.Choices[0].Message.Content
+	log.Println(response)
 
-	return resp.Choices[0].Message.Content
+	return response
 }
