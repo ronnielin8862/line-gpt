@@ -2,6 +2,7 @@ package gpt
 
 import (
 	"context"
+	"fmt"
 	"github.com/sashabaranov/go-openai"
 	"line-gpt/global"
 	"log"
@@ -23,8 +24,9 @@ func Talk(ask string) string {
 	)
 
 	if err != nil {
-		log.Printf("ChatCompletion error: %v\n\n", err)
-		return "我有點錯亂，請再問一次..."
+		errString := fmt.Sprintf("ImageCreate error: %v", err)
+		log.Printf("ImageCreate error: %v\n\n", errString)
+		return fmt.Sprintf("ImageCreate error: %v\n\n", errString)
 	}
 
 	log.Println(resp.Choices[0].Message.Content)

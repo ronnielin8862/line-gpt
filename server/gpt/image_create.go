@@ -2,6 +2,7 @@ package gpt
 
 import (
 	"context"
+	"fmt"
 	"github.com/sashabaranov/go-openai"
 	"line-gpt/global"
 	"log"
@@ -23,9 +24,10 @@ func ImageCreate(ask string) (urls []string) {
 		},
 	)
 	if err != nil {
-		log.Printf("ImageCreate error: %v\n\n", err)
-		urls = append(urls, "我有點錯亂，請再試一次...")
-		return
+		errString := fmt.Sprintf("ImageCreate error: %v", err)
+		log.Printf("ImageCreate error: %v\n\n", errString)
+		urls = append(urls, "有什麼錯誤發生了！ : %s", errString)
+		return urls
 	}
 	for _, c := range resp.Data {
 		urls = append(urls, c.URL)
