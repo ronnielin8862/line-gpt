@@ -24,13 +24,13 @@ func Talk(ask string) string {
 	)
 
 	if err != nil {
-		errString := fmt.Sprintf("ImageCreate error: %v", err)
-		log.Printf("ImageCreate error: %v\n\n", errString)
-		return fmt.Sprintf("ImageCreate error: %v\n\n", errString)
+		errString := fmt.Sprintf("talk error: %v", err)
+		log.Printf("%v\n\n", errString)
+		return errString
 	}
 
-	response := resp.Choices[0].Message.Content
-	log.Println(response)
-
+	var response = resp.Choices[0].Message.Content
+	log.Println("ask answer " + response)
+	log.Println("ask answer " + response)
 	return response
 }
